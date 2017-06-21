@@ -1,57 +1,40 @@
-var tasks = ["walk the dog", "go to the grocery store", "vacuum the house", "do the laundry"];
-             
-function createList(){
-  //This function creates a list of tasks, prints to HTML
-      
-//select the #list-container element from HTML (add it to HTML)  
-  var parent = document.getElementById("list-container")
- 
-  //Clear out exisitng contents
-  parent.innerHTML=""
-  
-  //Create an <ul>node
-  var ul = document.createElement("ul")
-  
-  for(var i =0; i<tasks.length; i++){
-     console.log(tasks[i])
-    
- 
-  //Create an <li> node
-  var li = document.createElement("li")
- 
-  //Add the task string to the li
-  li.innerHTML = (tasks[i])
-  
-  //Append the li to ul
-  ul.appendChild(li)
+//This array will add the tasks created in the desrctiption
+var taskList = [];
+
+function task(person, description, difficulty)
+  {
+    this.person = person;
+    this.description = description;
+    this.difficulty = difficulty;
   }
   
-  //Append the ul to the #list-container
-  parent.appendChild(ul)
+//assigns the level of difficulty of the task
+function getFormData(){
+  var person = document.querySelector('input[name="person"]:checked').value;
+  var description = document.getElementById("description").value;
+  var difficulty= document.getElementById("difficulty").value;
   
-  } 
-
-function taskCreator(){
-  console.log ("creating tasks")
-  event.preventDefault();
-  
-  var form=document.querySelector("form");
-  
-  //Create a new task with form values
-  var newTask = {task:form.first-name.value}
-  
-  //Insert new task into task
-  tasks.push(newTask)
+  var newTask = new task(person, description, difficulty);
+  taskList.push(newTask);
+  addToDoList();
+}
+//Adds the task that needs to be completed//
+function addToDoList(){
+  var ulTaskList = document.getElementById("toDoTasks"); 
+  ulTaskList.innerHTML = "";
  
-  //Trigger the list
-  createList();
+  for (var i =0; i<taskList.length; i++){
+    var taskItem = taskList[i];
+    var liTaskItem = document.createElement("li");
+    
+    //Concatenation of phrase//
+    liTaskItem.innerHTML = taskItem.person + " has to " + taskItem.description + " which is a/an " + taskItem.difficulty +" task"; ulTaskList.appendChild(liTaskItem);
+     
+  }
+  
+  
+  
+  
   
 }
-
- window.onload = function(){   
-  createList();
- }
- 
- //Select the form and attach taskCreator as onsubmit handler
- var form=document.querySelector("form")
- form.onsubmit = taskCreator;
+  
